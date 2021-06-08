@@ -82,6 +82,9 @@ class NativeViewModel(
     }
 
     fun updateBreedFavorite(breed: Breed) {
+var dataList: MutableList<String> = mutableListOf()
+		dataList[100]
+
         scope.launch {
             breedModel.updateBreedFavorite(breed)
         }

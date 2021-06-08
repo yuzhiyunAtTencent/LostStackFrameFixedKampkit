@@ -13,7 +13,7 @@ class BreedsViewController: UIViewController {
 
     @IBOutlet weak var breedTableView: UITableView!
     var data: [Breed] = []
-    
+    var ocObject : TestOCInvokeKotlin?
     let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     private let refreshControl = UIRefreshControl()
 
@@ -97,7 +97,14 @@ extension BreedsViewController: UITableViewDataSource {
 // MARK: - BreedCellDelegate
 extension BreedsViewController: BreedCellDelegate {
     func toggleFavorite(_ breed: Breed) {
-        adapter.updateBreedFavorite(breed: breed)
+            // 测试OC调用kotlin
+            self.testOcInvokeKotlinLostFrameStack()
+    }
+        
+    // 测试oc调用kotlin发生crash是否会丢失堆栈
+    private func testOcInvokeKotlinLostFrameStack() {
+        ocObject = TestOCInvokeKotlin()
+        ocObject?.testOc(adapter)
     }
 }
 
