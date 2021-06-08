@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
+import com.kwai.kn.common.KYNUserDefault
 
 class NativeViewModel(
     private val onLoading: () -> Unit,
@@ -82,8 +83,11 @@ class NativeViewModel(
     }
 
     fun updateBreedFavorite(breed: Breed) {
-var dataList: MutableList<String> = mutableListOf()
-		dataList[100]
+        KYNUserDefault.Companion.boolForKey("ss");
+        KYNUserDefault.Companion.boolForKey22("ss")
+
+// var dataList: MutableList<String> = mutableListOf()
+// 		dataList[100]
 
         scope.launch {
             breedModel.updateBreedFavorite(breed)

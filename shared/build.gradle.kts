@@ -32,9 +32,9 @@ kotlin {
     // Revert to just ios() when gradle plugin can properly resolve it
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
-        iosArm64("ios")
+        iosArm64("ios").setupCinterop()
     } else {
-        iosX64("ios")
+        iosX64("ios").setupCinterop()
     }
 
     version = "1.1"
@@ -116,6 +116,17 @@ kotlin {
             isStatic = true
             export(Deps.kermit)
             transitiveExport = true
+        }
+    }
+}
+
+fun KotlinNativeTarget.setupCinterop() {
+    val commonBridgePath = "src/nativeInterop/cinterop/TestUpToDate"
+
+    compilations.getByName("main") {
+        val CommonInterop by cinterops.creating {
+            defFile(project.file("${commonBridgePath}/CommonBridge.def"))
+            compilerOpts("-I$commonBridgePath")
         }
     }
 }
